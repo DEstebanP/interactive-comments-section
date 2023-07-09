@@ -1,0 +1,132 @@
+:root {
+    --main-blue: hsl(238, 40%, 52%);
+    --delete-red: hsl(358, 79%, 66%);
+    --button-blue: hsl(239, 57%, 85%);
+    --hover-delete-red: hsl(357, 100%, 86%);
+    --title-blue: hsl(212, 24%, 26%);
+    --font-color-gray: hsl(211, 10%, 45%);
+    --light-gray: hsl(223, 19%, 93%);
+    --very-light-gray: hsl(228, 33%, 97%);
+    --white: hsl(0, 0%, 100%);
+    --font-text: 'Rubik', sans-serif; /* 400, 500, 700 */ 
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 62.5%;
+    font-family: var(--font-text);
+}
+body {
+    font-size: 1.4rem;
+    background-color: var(--very-light-gray);
+}
+
+main {
+    margin: 0 auto;
+    max-width: 630px;
+}
+.comment, .comment-reply {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    min-width: 290px;
+    height: auto;
+    margin: 20px auto;
+    padding: 10px 8px;
+    border-radius: 8px;
+    line-height: 1.8rem;
+    background-color: var(--white);
+}
+
+.comment-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 12px;
+}
+.comment .user-img, .comment-reply .user-img {
+    width: 30px;
+}
+
+.nickname {
+    font-weight: 500;
+}
+
+.time {
+    color: var(--font-color-gray);
+}
+
+.comment-content {
+    margin: 12px;
+    color: var(--font-color-gray);
+}
+
+.vote-btn {
+    display: inline-block;
+    width: 80px;
+    padding: 10px 8px;
+    margin-left: 12px;
+    border-radius: 8px;
+    background-color: var(--very-light-gray);
+}
+.vote-btn * {
+    margin: 0 3px;
+}
+.vote-btn button {
+    all: unset;
+    cursor: pointer;
+}
+.vote-btn img {
+    width: 12px;
+    height: 12px;
+    object-fit: contain;
+}
+
+.reply-container, .edit-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 30px;
+    bottom: 18px;
+}
+.reply-container span, .edit-container span {
+    color: var(--main-blue);
+    font-weight: 500;
+    margin-left: 6px;
+}
+.delete-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 90px;
+    bottom: 18px;
+}
+.delete-container span {
+    color: var(--delete-red);
+    font-weight: 500;
+    margin-left: 6px;
+}
+
+.comment-reply {
+    width: 80%;
+    min-width: 220px;
+    max-width: 530px;
+    margin: 20px 0 20px 15%;
+}
+
+.replies-container {
+    position: relative;
+}
+
+.line {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    width: 3px; /* Ancho de la línea */
+    height: 100%; /* Altura de la línea */
+    background-color: var(--light-gray); /* Color de la línea */
+
+}
