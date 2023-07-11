@@ -24,7 +24,7 @@ body {
     background-color: var(--very-light-gray);
 }
 
-main {
+main, .add-comment {
     margin: 0 auto;
     max-width: 630px;
 }
@@ -138,7 +138,7 @@ main {
     align-items: baseline;
     row-gap: 10px;
     width: 90%;
-    max-width: 600px;
+    max-width: 567px;
     min-width: 290px;
     height: 150px;
     margin: 20px auto;
@@ -175,5 +175,27 @@ main {
     color: var(--white);
     border-radius: 6px;
     border: none;
+}
+
+.add-comment__btn {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 16px;
+    border-radius: 50%;
+    background-color: var(--main-blue);
+    cursor: pointer;
+}
+
+.add-comment__btn img {
+    width: 25px;
+}
+
+.inactive {
+    display: none;
 }
 

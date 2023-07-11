@@ -1,0 +1,64 @@
+.comment, .comment-reply {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: 1fr 2fr;
+    align-items: baseline;
+}
+
+.comment-user-info {
+    align-self: flex-end;
+}
+
+.vote-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-row: 1 / 3;
+    align-self: center;
+    width: fit-content;
+    padding: 6px 10px;
+}
+.vote-btn * {
+    margin: 3px 0;
+    
+}
+
+
+.reply-container, .edit-container, .delete-container {
+    bottom: auto;
+    top: 26px;
+}
+.delete-container {
+    right: 100px;
+}
+
+.add-comment {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 6fr 1fr;
+    height: 100px;
+    max-width: 600px;
+    padding: 16px 12px;
+}
+
+.add-comment img {
+    order: 1;
+    align-self:flex-start;
+}
+
+.add-comment input {
+    grid-column: auto;
+    justify-self: stretch;
+    order: 2;
+}
+
+.add-comment button {
+    margin-right: 8px;
+    align-self: flex-start;
+    order: 3;
+}
+.comment, .comment-reply {
+    width: 600px;
+}
+.comment-reply {
+    margin: 20px 0 20px 13.5%;
+}
