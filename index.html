@@ -13,51 +13,35 @@
 <body>
     <main class="comments-container">
         
-        <section class="comment">
-            <div class="comment-user-info">
-                <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="">
-                <span class="nickname">amyrobson</span>
-                <span class="time">1 month ago</span>
-            </div>
-            <p class="comment-content">"Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well."</p>
-            <div class="vote-btn">
-                <button><img src="./images/icon-plus.svg" alt=""></button>
-                <span>12</span>
-                <button><img src="./images/icon-minus.svg" alt=""></button>
-            </div>
-            <div class="reply-container">
-                <img src="./images/icon-reply.svg" alt="">
-                <span>Reply</span>
-            </div>
-        </section>
-        <section class="comment">
-            <div class="comment-user-info">
-                <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="">
-                <span class="nickname">amyrobson</span>
-                <span class="time">1 month ago</span>
-            </div>
-            <p class="comment-content">"Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well."</p>
-            <div class="vote-btn">
-                <button><img src="./images/icon-plus.svg" alt=""></button>
-                <span>12</span>
-                <button><img src="./images/icon-minus.svg" alt=""></button>
+        <!-- <section class="comment-container">
+            <div class="comment">
+                <div class="comment-user-info">
+                    <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="">
+                    <span class="nickname">amyrobson</span>
+                    <span class="time">1 month ago</span>
+                </div>
+                <p class="comment-content">"Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well."</p>
+                <div class="vote-btn">
+                    <button><img src="./images/icon-plus.svg" alt=""></button>
+                    <span>12</span>
+                    <button><img src="./images/icon-minus.svg" alt=""></button>
+                </div>
+                <div class="reply-container">
+                    <img src="./images/icon-reply.svg" alt="">
+                    <span>Reply</span>
+                </div>
             </div>
 
-            <div class="delete-container">
-                <img src="./images/icon-delete.svg" alt="">
-                <span>Delete</span>
-            </div>
-            <div class="edit-container">
-                <img src="./images/icon-edit.svg" alt="">
-                <span>Edit</span>
+            <div class="temporal-reply-prompt">
+                <input type="text" name="" placeholder="Add a comment...">
+                <img src="./images/avatars/image-juliusomo.webp" alt="">
+                <button>REPLY</button>
             </div>
         </section>
 
 
-
-        <section class="replies-container">
-            <div class="line"></div>
-            <section class="comment-reply">
+        <section class="comment-container">
+            <div class="comment">
                 <div class="comment-user-info">
                     <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="">
                     <span class="nickname">amyrobson</span>
@@ -78,33 +62,64 @@
                     <img src="./images/icon-edit.svg" alt="">
                     <span>Edit</span>
                 </div>
-            </section>
-
-
-            <section class="comment-reply">
-                <div class="comment-user-info">
-                    <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="">
-                    <span class="nickname">amyrobson</span>
-                    <span class="time">1 month ago</span>
-                </div>
-                <p class="comment-content">"Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well."</p>
-                <div class="vote-btn">
-                    <button><img src="./images/icon-plus.svg" alt=""></button>
-                    <span>12</span>
-                    <button><img src="./images/icon-minus.svg" alt=""></button>
-                </div>
-    
-                <div class="delete-container">
-                    <img src="./images/icon-delete.svg" alt="">
-                    <span>Delete</span>
-                </div>
-                <div class="edit-container">
-                    <img src="./images/icon-edit.svg" alt="">
-                    <span>Edit</span>
-                </div>
-            </section>
-        </section>
+            </div>
         
+            <section class="replies-container">
+                <div class="line"></div>
+                <div class="comment-reply">
+                    <div class="comment-user-info">
+                        <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="">
+                        <span class="nickname">amyrobson</span>
+                        <span class="time">1 month ago</span>
+                    </div>
+                    <p class="comment-content">"Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well."</p>
+                    <div class="vote-btn">
+                        <button><img src="./images/icon-plus.svg" alt=""></button>
+                        <span>12</span>
+                        <button><img src="./images/icon-minus.svg" alt=""></button>
+                    </div>
+        
+                    <div class="delete-container">
+                        <img src="./images/icon-delete.svg" alt="">
+                        <span>Delete</span>
+                    </div>
+                    <div class="edit-container">
+                        <img src="./images/icon-edit.svg" alt="">
+                        <span>Edit</span>
+                    </div>
+                </div>
+    
+                <div class="temporal-reply-prompt comment-reply">
+                    <input type="text" name="" placeholder="Add a comment...">
+                    <img src="./images/avatars/image-juliusomo.webp" alt="">
+                    <button>REPLY</button>
+                </div>
+
+                <div class="comment-reply">
+                    <div class="comment-user-info">
+                        <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="">
+                        <span class="nickname">amyrobson</span>
+                        <span class="time">1 month ago</span>
+                    </div>
+                    <p class="comment-content">"Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well."</p>
+                    <div class="vote-btn">
+                        <button><img src="./images/icon-plus.svg" alt=""></button>
+                        <span>12</span>
+                        <button><img src="./images/icon-minus.svg" alt=""></button>
+                    </div>
+        
+                    <div class="delete-container">
+                        <img src="./images/icon-delete.svg" alt="">
+                        <span>Delete</span>
+                    </div>
+                    <div class="edit-container">
+                        <img src="./images/icon-edit.svg" alt="">
+                        <span>Edit</span>
+                    </div>
+                </div>
+            </section>
+            
+        </section>  -->
     </main>
 
     <footer class="add-comment inactive">
@@ -116,6 +131,6 @@
         <img src="./images/icon-add.comment.png" alt="">
     </div>
 
-    <script src="/main.js"></script>
+    <!-- <script src="/main.js"></script> -->
 </body>
 </html>

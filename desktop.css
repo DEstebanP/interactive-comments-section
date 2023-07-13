@@ -32,7 +32,7 @@
     right: 100px;
 }
 
-.add-comment {
+.add-comment, .temporal-reply-prompt {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 6fr 1fr;
     height: 100px;
@@ -40,25 +40,28 @@
     padding: 16px 12px;
 }
 
-.add-comment img {
+.add-comment img, .temporal-reply-prompt img {
     order: 1;
     align-self:flex-start;
 }
 
-.add-comment input {
+.add-comment input, .temporal-reply-prompt input {
     grid-column: auto;
     justify-self: stretch;
     order: 2;
 }
 
-.add-comment button {
+.add-comment button, .temporal-reply-prompt button{
     margin-right: 8px;
     align-self: flex-start;
     order: 3;
 }
-.comment, .comment-reply {
+.comment, .comment-reply, .temporal-reply-prompt {
     width: 600px;
 }
 .comment-reply {
     margin: 20px 0 20px 13.5%;
+}
+.line {
+    left: 45px;
 }
