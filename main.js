@@ -1,24 +1,4 @@
-/*<section class="comment-container">
-    <div class="comment">
-        <div class="comment-user-info">
-            <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="">
-            <span class="nickname">amyrobson</span>
-            <span class="time">1 month ago</span>
-        </div>
-        <p class="comment-content">"Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well."</p>
-        <div class="vote-btn">
-            <button><img src="./images/icon-plus.svg" alt=""></button>
-            <span>12</span>
-            <button><img src="./images/icon-minus.svg" alt=""></button>
-        </div>
-        <div class="reply-container">
-            <img src="./images/icon-reply.svg" alt="">
-            <span>Reply</span>
-        </div>
-    </div>
-</section> */
 const commentMainContainer = document.querySelector('.comments-container');
-
 let currentUser;
 const comments = [];
 
@@ -110,7 +90,9 @@ function renderCommentProt() {
 
         replyContainer.append(replyImg, spanReply);
         commentSection.append(replyContainer);
-        console.log(replyContainer)
+        
+        //
+        replyContainer.addEventListener('click', renderTemporalReply)
     }
 
 
@@ -129,6 +111,41 @@ function renderCommentProt() {
     }
 
     // poner replies container fuera de la funcion y crear un closure
+}
+
+/*  <div class="temporal-reply-prompt comment-reply">
+        <input type="text" name="" placeholder="Add a comment...">
+        <img src="./images/avatars/image-juliusomo.webp" alt="">
+        <button>REPLY</button>
+    </div> */
+
+function renderTemporalReply(event) {
+    let commentNode = event.target.parentNode;
+    if (!commentNode.classList.contains('comment')) {
+        commentNode = commentNode.parentNode;
+    }
+    const replyPrompt = document.createElement('div');
+    replyPrompt.classList.add('temporal-reply-prompt');
+    if (commentNode.classList.contains('comment-reply')) {
+        replyPrompt.classList.add('comment-reply')    
+    }
+
+    const inputComment = document.createElement('input');
+    inputComment.type = 'text';
+    inputComment.placeholder = 'Add a comment...';
+
+    const imgUser = document.createElement('img');
+    imgUser.src = currentUser.image.webp;
+
+    const replyBtn = document.createElement('button');
+    replyBtn.innerText = 'REPLY';
+
+    replyPrompt.append(inputComment, imgUser, replyBtn);
+
+    commentNode.insertAdjacentElement('afterend', replyPrompt);
+
+    //Eliminar el contendor cuando se de click en el boton 'REPLY'
+    replyBtn.addEventListener('click', () => replyPrompt.remove());
 }
 
 function renderComments() {

@@ -88,18 +88,27 @@ main, .add-comment, .reply-comment {
 .reply-container, .edit-container {
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    width: 60px;
     position: absolute;
     right: 30px;
     bottom: 18px;
+    cursor: pointer;
 }
+.edit-container {
+    width: 50px;
+}
+
 .reply-container span, .edit-container span {
     color: var(--main-blue);
     font-weight: 500;
-    margin-left: 6px;
 }
+
 .delete-container {
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    width: 64px;
     position: absolute;
     right: 90px;
     bottom: 18px;
@@ -107,7 +116,6 @@ main, .add-comment, .reply-comment {
 .delete-container span {
     color: var(--delete-red);
     font-weight: 500;
-    margin-left: 6px;
 }
 
 .replies-container .comment-reply {
@@ -180,6 +188,7 @@ main, .add-comment, .reply-comment {
     color: var(--white);
     border-radius: 6px;
     border: none;
+    cursor: pointer;
 }
 
 .add-comment__btn {
