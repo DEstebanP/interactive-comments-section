@@ -1,11 +1,27 @@
 const commentMainContainer = document.querySelector('.comments-container');
+const addCommentBtn = document.querySelector('.add-comment__btn');
+const addCommentFooter = document.querySelector('.add-comment');
+const commentInput = document.querySelector('#comment-input');
+const sendBtn = document.getElementById('send-btn');
+
+
+commentInput.addEventListener('input', inputValue)
+sendBtn.addEventListener('click', addNewComment);
+addCommentBtn.addEventListener('click', () => {
+    addCommentFooter.classList.remove('inactive');
+    addCommentBtn.classList.add('inactive');
+});
+
 let currentUser;
 const comments = [];
+let inputContent;
+let commentReply;
+let username;
 
 function renderCommentProt() {
     let repliesContainer;
-    return function(userIcon, nickname, createdAtTime, content, score, isReply) {
-        let commentContainer;
+    return function(userIcon, nickname, createdAtTime, content, score, isReply, id) {
+    let commentContainer;
     if (!isReply) {
         commentContainer = document.createElement('section')
         commentContainer.classList.add('comment-container');
@@ -14,8 +30,10 @@ function renderCommentProt() {
     const commentSection = document.createElement('div');
     if (isReply) {
         commentSection.classList.add('comment-reply');
+        commentSection.id = id;
     } else {
         commentSection.classList.add('comment');
+        commentSection.id = id;
     }
 
     const userInfoDiv = document.createElement('div')
@@ -92,7 +110,7 @@ function renderCommentProt() {
         commentSection.append(replyContainer);
         
         //
-        replyContainer.addEventListener('click', renderTemporalReply)
+        replyContainer.addEventListener('click', (event) => renderTemporalReply(event, replyContainer));
     }
 
 
@@ -109,21 +127,81 @@ function renderCommentProt() {
         repliesContainer.append(commentSection);
     }
     }
-
-    // poner replies container fuera de la funcion y crear un closure
 }
 
-/*  <div class="temporal-reply-prompt comment-reply">
-        <input type="text" name="" placeholder="Add a comment...">
-        <img src="./images/avatars/image-juliusomo.webp" alt="">
-        <button>REPLY</button>
-    </div> */
+/* function allocateId() {
 
-function renderTemporalReply(event) {
+} */
+function inputValue(event) {
+    inputContent = event.target.value;
+}
+
+function reloadPage() {
+    while (commentMainContainer.firstChild) {
+        commentMainContainer.removeChild(commentMainContainer.firstChild);
+    }
+
+    renderComments();
+}
+
+function addNewComment() {
+    const newComment = new Comment({
+        id: comments.length + 1,
+        content: inputContent,
+
+        user: username
+    })
+
+    comments.push(newComment);  
+    addCommentFooter.classList.add('inactive');
+    addCommentBtn.classList.remove('inactive');
+    commentInput.value = "";
+
+    reloadPage();
+}
+
+function addNewReply() {
+
+    
+    const newReply = new Reply({
+        id: 0,
+        content: inputContent,
+        user: username
+    }, commentReply.user.username
+    );
+
+    if (commentReply.replies) {
+        commentReply.replies.push(newReply);
+    } else {
+        const commentIndex = commentNode.id[0] - 1;
+        comments[commentIndex].replies.push(newReply);
+    }
+
+    reloadPage();
+}
+
+function renderTemporalReply(event, replyContainer) {
+    //Quitar o poner el reply
+    replyContainer.classList.add('inactive');
+
+    //Obtener el elemento que se clickeo
     let commentNode = event.target.parentNode;
     if (!commentNode.classList.contains('comment')) {
         commentNode = commentNode.parentNode;
     }
+
+    //Obtener el objeto
+    for (const comment of comments) {
+        if (comment.id == commentNode.id) {
+            commentReply = comment;
+        }
+        for (const reply of comment.replies) {
+            if (reply.id == commentNode.id) {
+                commentReply = reply;
+            }
+        }
+    }
+
     const replyPrompt = document.createElement('div');
     replyPrompt.classList.add('temporal-reply-prompt');
     if (commentNode.classList.contains('comment-reply')) {
@@ -133,6 +211,8 @@ function renderTemporalReply(event) {
     const inputComment = document.createElement('input');
     inputComment.type = 'text';
     inputComment.placeholder = 'Add a comment...';
+    inputComment.value = `@${commentReply.user.username} `;
+    inputComment.addEventListener('input', inputValue);
 
     const imgUser = document.createElement('img');
     imgUser.src = currentUser.image.webp;
@@ -145,18 +225,64 @@ function renderTemporalReply(event) {
     commentNode.insertAdjacentElement('afterend', replyPrompt);
 
     //Eliminar el contendor cuando se de click en el boton 'REPLY'
-    replyBtn.addEventListener('click', () => replyPrompt.remove());
+    replyBtn.addEventListener('click', addNewReply);
+    /* replyBtn.addEventListener('click', () => {
+        replyPrompt.remove();
+        replyContainer.classList.remove('inactive');
+    }); */
 }
 
 function renderComments() {
     for (const comment of comments) {
         const showComments = renderCommentProt();
-        showComments(comment.user.image.webp, comment.user.username, comment.createdAt, comment.content, comment.score, false);
+        showComments(comment.user.image.webp, comment.user.username, comment.createdAt, comment.content, comment.score, false, comment.id);
         if (comment.replies.length) {
             for (const reply of comment.replies) {
-                showComments(reply.user.image.webp, reply.user.username, reply.createdAt, reply.content, reply.score, true);
+                showComments(reply.user.image.webp, reply.user.username, reply.createdAt, reply.content, reply.score, true, reply.id);
             }
         }
+    }
+}
+
+
+
+class User {
+    constructor({
+        image = {
+            png,
+            webp: undefined
+        },
+        username
+    }){
+        this.image = image;
+        this.username = username;
+    }
+}
+
+
+class Comment {
+    constructor({
+        id,
+        content,
+        createdAt = 'Now',
+        score = 0,
+        user,
+        replies = []
+    }) {
+        this.id = id;
+        this.content = content;
+        this.createdAt = createdAt;
+        this.score = score;
+        this.user = user;
+        this.replies = replies;
+    }
+}
+
+class Reply extends Comment {
+    constructor(props, replyingTo){
+        super(props);
+        this.replyingTo = replyingTo;
+        delete Reply.prototype.replies;
     }
 }
 
@@ -189,6 +315,14 @@ async function fetchData() {
         console.log(comments);
 
       // Llamar a otras funciones o ejecutar código que dependa de comments y currentUser
+        username = new User({
+        image:{
+            png: currentUser.image.png,
+            webp: currentUser.image.webp
+        },
+        username: currentUser.username
+    })
+    
         renderComments();
     } catch (error) {
         console.error('Error al cargar el archivo JSON:', error);

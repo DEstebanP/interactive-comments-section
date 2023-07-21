@@ -27,6 +27,11 @@
 .reply-container, .edit-container, .delete-container {
     bottom: auto;
     top: 26px;
+    cursor: pointer;
+}
+
+.reply-container:hover, .edit-container:hover, .delete-container:hover,.temporal-reply-prompt button:hover, .add-comment button:hover {
+    opacity: 40%;
 }
 .delete-container {
     right: 100px;
@@ -56,10 +61,13 @@
     align-self: flex-start;
     order: 3;
 }
-.comment, .comment-reply, .temporal-reply-prompt {
+
+
+.comment, .replies-container .comment-reply, .temporal-reply-prompt {
     width: 600px;
 }
-.comment-reply {
+
+.replies-container .comment-reply {
     margin: 20px 0 20px 13.5%;
 }
 .line {
