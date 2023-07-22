@@ -13,7 +13,7 @@ addCommentBtn.addEventListener('click', () => {
 });
 
 let currentUser;
-const comments = [];
+let comments = [];
 let inputContent;
 let commentReply;
 let username;
@@ -140,7 +140,8 @@ function reloadPage() {
     while (commentMainContainer.firstChild) {
         commentMainContainer.removeChild(commentMainContainer.firstChild);
     }
-
+    
+    localStorage.setItem("commentsArr", JSON.stringify(comments));
     renderComments();
 }
 
@@ -293,26 +294,34 @@ async function fetchData() {
 
         currentUser = data.currentUser;
     // Acceder a los datos del archivo JSON
-        data.comments.forEach(comment => {
-            const id = comment.id;
-            const content = comment.content;
-            const createdAt = comment.createdAt;
-            const score = comment.score;
-            const user = comment.user;
-            const replies = comment.replies;
 
-            const commentObj = {
-                id: id,
-                content: content,
-                createdAt: createdAt,
-                score: score,
-                user: user,
-                replies: replies
-            }
+        if (!localStorage.getItem("commentsArr")) {
+            data.comments.forEach(comment => {
+                const id = comment.id;
+                const content = comment.content;
+                const createdAt = comment.createdAt;
+                const score = comment.score;
+                const user = comment.user;
+                const replies = comment.replies;
+    
+                const commentObj = {
+                    id: id,
+                    content: content,
+                    createdAt: createdAt,
+                    score: score,
+                    user: user,
+                    replies: replies
+                }
+    
+                comments.push(commentObj);
+            });
 
-            comments.push(commentObj);
-        });
-        console.log(comments);
+            localStorage.setItem("commentsArr", JSON.stringify(comments));
+            console.log(comments);
+        } else {
+            const commentsArr = JSON.parse(localStorage.getItem("commentsArr"));
+            comments = commentsArr;
+        }
 
       // Llamar a otras funciones o ejecutar código que dependa de comments y currentUser
         username = new User({
