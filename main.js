@@ -17,6 +17,7 @@ let comments = [];
 let inputContent;
 let commentReply;
 let username;
+let liked;
 
 function renderCommentProt() {
     let repliesContainer;
@@ -58,17 +59,21 @@ function renderCommentProt() {
     const voteBtn = document.createElement('div')
     voteBtn.classList.add('vote-btn');
     const plusBtn = document.createElement('button');
+    plusBtn.classList.add('plus');
     const plusImg = document.createElement('img');
     plusImg.src = './images/icon-plus.svg';
     plusBtn.appendChild(plusImg);
+    plusBtn.addEventListener('click', upDownVote);
     //
     const commentScore = document.createElement('span');
     commentScore.innerText = score;
     //
     const minusBtn = document.createElement('button');
+    minusBtn.classList.add('minus');
     const minusImg = document.createElement('img');
     minusImg.src = './images/icon-minus.svg';
     minusBtn.appendChild(minusImg);
+    minusBtn.addEventListener('click', upDownVote);
 
     voteBtn.append(plusBtn,commentScore,minusBtn);
 
@@ -162,8 +167,6 @@ function addNewComment() {
 }
 
 function addNewReply() {
-
-    
     const newReply = new Reply({
         id: 0,
         content: inputContent,
@@ -174,7 +177,7 @@ function addNewReply() {
     if (commentReply.replies) {
         commentReply.replies.push(newReply);
     } else {
-        const commentIndex = commentNode.id[0] - 1;
+        const commentIndex = Number((String(commentReply.id)[0])) - 1;
         comments[commentIndex].replies.push(newReply);
     }
 
@@ -187,7 +190,7 @@ function renderTemporalReply(event, replyContainer) {
 
     //Obtener el elemento que se clickeo
     let commentNode = event.target.parentNode;
-    if (!commentNode.classList.contains('comment')) {
+    if (!commentNode.classList.contains('comment') || !commentNode.classList.contains('comment-reply')) {
         commentNode = commentNode.parentNode;
     }
 
@@ -202,7 +205,7 @@ function renderTemporalReply(event, replyContainer) {
             }
         }
     }
-
+    console.log({commentReply,commentNode});
     const replyPrompt = document.createElement('div');
     replyPrompt.classList.add('temporal-reply-prompt');
     if (commentNode.classList.contains('comment-reply')) {
@@ -243,8 +246,60 @@ function renderComments() {
             }
         }
     }
+
+    //Class for likes
+    if (liked == 'plus') {
+        debugger;
+        isPlusVote.classList.add('voted-plus');
+        isPlusVote.classList.remove('voted-minus');
+    } else if (liked == 'minus') {
+        isPlusVote.classList.add('voted-minus');
+        isPlusVote.classList.remove('voted-plus');
+    }
 }
 
+function upDownVote(event) {
+    let commentNode = event.target.closest('.comment, .comment-reply');
+    const isPlusVote = event.target.closest('.plus, .minus');
+    let commentLike;
+    for (const comment of comments) {
+        if (comment.id == commentNode.id) {
+            commentLike = comment;
+        }
+        for (const reply of comment.replies) {
+            if (reply.id == commentNode.id) {
+                commentLike= reply;
+            }
+        }
+    }
+
+    if (isPlusVote.classList.contains('plus')) {
+        
+        if (commentLike.like == 'minus') {
+            commentLike.score += 2;
+            commentLike.like = 'plus'
+        } else if (commentLike.like == 'plus') {
+            commentLike.score -= 1;
+            commentLike.like = undefined;
+        } else {
+            commentLike.score += 1;
+            commentLike.like = 'plus'
+        }
+    } else if (isPlusVote.classList.contains('minus')) {
+        if (commentLike.like == 'plus') {
+            commentLike.score -= 2;
+            commentLike.like = 'minus'; 
+        } else if (commentLike.like == 'minus') {
+            commentLike.score += 1;
+            commentLike.like = undefined;
+        } else {
+            commentLike.score -= 1;
+            commentLike.like = 'minus';  
+        }
+    }
+
+    reloadPage();
+}
 
 
 class User {
