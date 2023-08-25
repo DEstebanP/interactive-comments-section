@@ -209,6 +209,59 @@ main, .add-comment, .reply-comment {
     width: 25px;
 }
 
+/* Delete container */
+.delete-comment-container {
+  content: "";
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3); /* Color con opacidad */
+  pointer-events: none;
+   /* Mover el pseudoelemento detrás del contenido */
+}
+.delete-comment {
+    width: 60%;
+    min-width: 290px;
+    max-width: 400px;
+    height: fit-content;
+    padding: 20px 20px 20px 24px ;
+    background-color: var(--white);
+    border-radius: 8px;
+}
+
+
+.delete-comment h3{
+    color: var(--title-blue);
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+.delete-comment p {
+    color: var(--font-color-gray);
+    line-height: 2rem;
+    margin-bottom: 16px;
+}
+
+.delete-buttons button {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--very-light-gray);
+}
+.delete-buttons button:nth-child(1) {
+    background-color: var(--font-color-gray);
+    margin-right: 8px;
+}
+.delete-buttons button:nth-child(2) {
+    background-color: var(--delete-red);
+}
+
 .inactive {
     display: none;
 }

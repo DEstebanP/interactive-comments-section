@@ -92,6 +92,7 @@ function renderCommentProt() {
         spanDelete.innerText = 'Delete';
 
         deleteDiv.append(deleteImg, spanDelete);
+        deleteDiv.addEventListener('click', deleteComment);
 
         editDiv = document.createElement('div')
         editDiv.classList.add('edit-container');
@@ -167,19 +168,22 @@ function addNewComment() {
 }
 
 function addNewReply() {
+    let indexId;
     const newReply = new Reply({
         id: 0,
         content: inputContent,
         user: username
     }, commentReply.user.username
     );
-
     if (commentReply.replies) {
         commentReply.replies.push(newReply);
+        indexId = Number(String(commentReply.id+'.'+commentReply.replies.length))
     } else {
         const commentIndex = Number((String(commentReply.id)[0])) - 1;
         comments[commentIndex].replies.push(newReply);
+        indexId = Number(String(comments[commentIndex].replies.length+'.'+commentReply.replies.length))
     }
+    newReply.id = indexId
 
     reloadPage();
 }
@@ -256,6 +260,13 @@ function renderComments() {
         isPlusVote.classList.add('voted-minus');
         isPlusVote.classList.remove('voted-plus');
     }
+}
+
+function deleteComment(event) {
+    let commentNode = event.target.closest('.comment, .comment-reply');
+    let commentId = commentNode.id
+    console.log(commentId);
+    console.log(event.target);
 }
 
 function upDownVote(event) {
