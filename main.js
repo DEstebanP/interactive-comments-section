@@ -3,7 +3,9 @@ const addCommentBtn = document.querySelector('.add-comment__btn');
 const addCommentFooter = document.querySelector('.add-comment');
 const commentInput = document.querySelector('#comment-input');
 const sendBtn = document.getElementById('send-btn');
-
+const deleteBox = document.querySelector('.delete-comment-container');
+const cancelDeleteBtn = document.getElementById('cancel-delete');
+const deleteBtn = document.getElementById('delete-btn');
 
 commentInput.addEventListener('input', inputValue)
 sendBtn.addEventListener('click', addNewComment);
@@ -11,6 +13,10 @@ addCommentBtn.addEventListener('click', () => {
     addCommentFooter.classList.remove('inactive');
     addCommentBtn.classList.add('inactive');
 });
+cancelDeleteBtn.addEventListener('click', (event) => {
+    deleteBox.classList.add('inactive')
+});
+deleteBtn.addEventListener('click', deleteComment)
 
 let currentUser;
 let comments = [];
@@ -92,7 +98,7 @@ function renderCommentProt() {
         spanDelete.innerText = 'Delete';
 
         deleteDiv.append(deleteImg, spanDelete);
-        deleteDiv.addEventListener('click', deleteComment);
+        deleteDiv.addEventListener('click', getIdDeleteElement);
 
         editDiv = document.createElement('div')
         editDiv.classList.add('edit-container');
@@ -262,11 +268,30 @@ function renderComments() {
     }
 }
 
-function deleteComment(event) {
+let deleteCommentId;
+function getIdDeleteElement(event) {
     let commentNode = event.target.closest('.comment, .comment-reply');
-    let commentId = commentNode.id
-    console.log(commentId);
-    console.log(event.target);
+    deleteCommentId = commentNode.id;
+    deleteBox.classList.toggle('inactive')
+}
+function deleteComment() {
+    console.log(deleteCommentId);
+    for (const comment of comments) {
+        if (comment.id == deleteCommentId) {
+            let index = comments.indexOf(comment);
+            comments.splice(index, 1);
+        } else{
+            for (const reply of comment.replies) {
+                if (reply.id == deleteCommentId) {
+                    let replyIndex = comment.replies.indexOf(reply);
+                    comment.replies.splice(replyIndex, 1);
+                    console.log(reply);
+                }
+            }
+        }
+    }
+    deleteBox.classList.add('inactive');
+    reloadPage();
 }
 
 function upDownVote(event) {

@@ -212,7 +212,7 @@ main, .add-comment, .reply-comment {
 /* Delete container */
 .delete-comment-container {
   content: "";
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -221,8 +221,6 @@ main, .add-comment, .reply-comment {
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3); /* Color con opacidad */
-  pointer-events: none;
-   /* Mover el pseudoelemento detrás del contenido */
 }
 .delete-comment {
     width: 60%;
@@ -253,6 +251,7 @@ main, .add-comment, .reply-comment {
     font-size: 1.4rem;
     font-weight: 500;
     color: var(--very-light-gray);
+    cursor: pointer;
 }
 .delete-buttons button:nth-child(1) {
     background-color: var(--font-color-gray);
