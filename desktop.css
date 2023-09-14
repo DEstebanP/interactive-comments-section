@@ -62,6 +62,12 @@
     order: 3;
 }
 
+.update-btn {
+    position: static;
+    grid-area: 3 / 2 / 4 / 3;
+    justify-self: right;
+    margin-right: 28px;
+}
 
 .comment, .replies-container .comment-reply, .temporal-reply-prompt {
     width: 600px;

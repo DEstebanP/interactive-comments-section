@@ -24,6 +24,7 @@ let inputContent;
 let commentReply;
 let username;
 let liked;
+let isToEdit = false;
 
 function renderCommentProt() {
     let repliesContainer;
@@ -108,6 +109,7 @@ function renderCommentProt() {
         spanEdit.innerText = 'Edit';
 
         editDiv.append(editImg, spanEdit);
+        editDiv.addEventListener('click', (event) => editComment(event, editDiv) )
 
         commentSection.append(deleteDiv, editDiv);
     } else {
@@ -187,7 +189,7 @@ function addNewReply() {
     } else {
         const commentIndex = Number((String(commentReply.id)[0])) - 1;
         comments[commentIndex].replies.push(newReply);
-        indexId = Number(String(comments[commentIndex].replies.length+'.'+commentReply.replies.length))
+        indexId = Number(String((commentIndex + 1)+'.'+comments[commentIndex].replies.length))
     }
     newReply.id = indexId
 
@@ -240,6 +242,12 @@ function renderTemporalReply(event, replyContainer) {
 
     //Eliminar el contendor cuando se de click en el boton 'REPLY'
     replyBtn.addEventListener('click', addNewReply);
+    /* inputComment.addEventListener('keydown', (event => {
+        console.log(event.key)
+        if (event.key === "Enter") {
+            addNewReply()
+        }
+    })) */
     /* replyBtn.addEventListener('click', () => {
         replyPrompt.remove();
         replyContainer.classList.remove('inactive');
@@ -268,21 +276,24 @@ function renderComments() {
     }
 }
 
-let deleteCommentId;
-function getIdDeleteElement(event) {
+let selectCommentId;
+
+function getCommentId(event) {
     let commentNode = event.target.closest('.comment, .comment-reply');
-    deleteCommentId = commentNode.id;
+    selectCommentId = commentNode.id;
+}
+function getIdDeleteElement(event) {
+    getCommentId(event);
     deleteBox.classList.toggle('inactive')
 }
 function deleteComment() {
-    console.log(deleteCommentId);
     for (const comment of comments) {
-        if (comment.id == deleteCommentId) {
+        if (comment.id == selectCommentId) {
             let index = comments.indexOf(comment);
             comments.splice(index, 1);
         } else{
             for (const reply of comment.replies) {
-                if (reply.id == deleteCommentId) {
+                if (reply.id == selectCommentId) {
                     let replyIndex = comment.replies.indexOf(reply);
                     comment.replies.splice(replyIndex, 1);
                     console.log(reply);
@@ -292,6 +303,47 @@ function deleteComment() {
     }
     deleteBox.classList.add('inactive');
     reloadPage();
+}
+
+function findComment(commentId) {
+    for (const comment of comments) {
+        if (comment.id == commentId) {
+            return comment
+        } else{
+            for (const reply of comment.replies) {
+                if (reply.id == selectCommentId) {
+                    return reply
+                }
+            }
+        }
+    }
+}
+
+function editComment(event, edtiDiv) {
+    edtiDiv.classList.add('inactive');
+    getCommentId(event);
+    const selectComment = findComment(selectCommentId);
+
+    console.log(selectComment);
+    let commentNode = event.target.closest('.comment, .comment-reply');
+    const pElement = commentNode.querySelector(".comment-content");
+    console.log(commentNode)
+    const inputElement = document.createElement("input");
+    inputElement.classList.add('edit-input');
+    inputElement.value = selectComment.content;
+
+    pElement.insertAdjacentElement("afterend", inputElement)
+    pElement.classList.add('inactive');
+
+    const updateBtn = document.createElement("button");
+    updateBtn.classList.add("update-btn");
+    updateBtn.innerText = 'UPDATE';
+    inputElement.insertAdjacentElement("afterend", updateBtn);
+
+    updateBtn.addEventListener('click', () => {
+        selectComment.content = inputElement.value;
+        reloadPage()
+    })
 }
 
 function upDownVote(event) {
