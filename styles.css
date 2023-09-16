@@ -67,8 +67,9 @@ main, .add-comment, .reply-comment {
 .vote-btn {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 80px;
-    padding: 10px 8px;
+    height: 36px;
     margin-left: 12px;
     border-radius: 8px;
     background-color: var(--very-light-gray);
@@ -77,8 +78,20 @@ main, .add-comment, .reply-comment {
 .vote-btn button {
     all: unset;
     cursor: pointer;
-    margin: 0 3px;
+    width: 24px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
+.vote-btn .plus {
+    border-radius: 4px 0 0 4px;
+}
+.vote-btn .minus {
+    border-radius: 0 4px 4px 0;
+}
+
 .vote-btn img {
     width: 12px;
     height: 12px;
@@ -285,6 +298,10 @@ main, .add-comment, .reply-comment {
 }
 .delete-buttons button:nth-child(2) {
     background-color: var(--delete-red);
+}
+
+.vote-btn .voted {
+    background-color: var(--main-blue);
 }
 
 .inactive {

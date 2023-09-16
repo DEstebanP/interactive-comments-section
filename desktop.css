@@ -15,14 +15,27 @@
     align-items: center;
     grid-row: 1 / 3;
     align-self: center;
-    width: fit-content;
-    padding: 6px 10px;
+    width: 36px;
+    height: 80px;
+    padding: 0;
+
 }
 .vote-btn * {
     margin: 3px 0;
     
 }
 
+.vote-btn button {
+    width: 100%;
+    height: 24px;
+}
+
+.vote-btn .plus {
+    border-radius: 4px 4px 0 0;
+}
+.vote-btn .minus {
+    border-radius: 0 0 4px 4px;
+}
 
 .reply-container, .edit-container, .delete-container {
     bottom: auto;

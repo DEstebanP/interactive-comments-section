@@ -28,7 +28,7 @@ let isToEdit = false;
 
 function renderCommentProt() {
     let repliesContainer;
-    return function(userIcon, nickname, createdAtTime, content, score, isReply, id) {
+    return function(comment, userIcon, nickname, createdAtTime, content, score, isReply, id) {
     let commentContainer;
     if (!isReply) {
         commentContainer = document.createElement('section')
@@ -83,6 +83,18 @@ function renderCommentProt() {
     minusBtn.addEventListener('click', upDownVote);
 
     voteBtn.append(plusBtn,commentScore,minusBtn);
+    console.log(comment.like);
+    switch (comment.like) {
+        case 'plus':
+            plusBtn.classList.add('voted');
+            break;
+        case "minus":
+            minusBtn.classList.add('voted');
+            break;
+        default:
+            minusBtn.classList.remove('voted');
+            plusBtn.classList.remove('voted');
+    }
 
     commentSection.append(userInfoDiv,commentContent,voteBtn);
 
@@ -257,22 +269,12 @@ function renderTemporalReply(event, replyContainer) {
 function renderComments() {
     for (const comment of comments) {
         const showComments = renderCommentProt();
-        showComments(comment.user.image.webp, comment.user.username, comment.createdAt, comment.content, comment.score, false, comment.id);
+        showComments(comment,comment.user.image.webp, comment.user.username, comment.createdAt, comment.content, comment.score, false, comment.id);
         if (comment.replies.length) {
             for (const reply of comment.replies) {
-                showComments(reply.user.image.webp, reply.user.username, reply.createdAt, reply.content, reply.score, true, reply.id);
+                showComments(reply, reply.user.image.webp, reply.user.username, reply.createdAt, reply.content, reply.score, true, reply.id);
             }
         }
-    }
-
-    //Class for likes
-    if (liked == 'plus') {
-        debugger;
-        isPlusVote.classList.add('voted-plus');
-        isPlusVote.classList.remove('voted-minus');
-    } else if (liked == 'minus') {
-        isPlusVote.classList.add('voted-minus');
-        isPlusVote.classList.remove('voted-plus');
     }
 }
 
@@ -371,18 +373,18 @@ function upDownVote(event) {
             commentLike.like = undefined;
         } else {
             commentLike.score += 1;
-            commentLike.like = 'plus'
+            commentLike.like = 'plus';
         }
     } else if (isPlusVote.classList.contains('minus')) {
         if (commentLike.like == 'plus') {
             commentLike.score -= 2;
-            commentLike.like = 'minus'; 
+            commentLike.like = 'minus';
         } else if (commentLike.like == 'minus') {
             commentLike.score += 1;
             commentLike.like = undefined;
         } else {
             commentLike.score -= 1;
-            commentLike.like = 'minus';  
+            commentLike.like = 'minus';
         }
     }
 
